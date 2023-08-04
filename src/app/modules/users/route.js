@@ -6,7 +6,7 @@ const jwtAuth = require('../../../auth/jwt.auth.js');
 
 
 router.get('/', jwtAuth.verifyToken, queries.findAllUsers);
-router.get('/:id', jwtAuth.verifyToken, queries.findOneUser);
+router.get('/:id', jwtAuth.verifyTokenAdmin, queries.findOneUser);
 router.post('/register', commands.register);
 router.post('/login', commands.login);
 
