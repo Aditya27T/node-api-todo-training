@@ -54,7 +54,7 @@ const verifyTokenAdmin = (req, res, next) => {
 }
 
 const generateToken = (user) => {
-    return jwt.sign({ id: user.id }, config.JWT_SECRET, {
+    return jwt.sign({ id: user.id, role: user.role }, config.JWT_SECRET, {
         expiresIn: 86400 // expires in 24 hours
     });
 }
