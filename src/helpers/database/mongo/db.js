@@ -21,9 +21,9 @@ const insertOne = async (parameter, collection) => {
     return recordSet
 }
 
-const updateOne = async (parameter, collection) => {
+const updateOne = async (parameter, data, collection) => {
     const db = await connection.getDb()
-    const recordSet = await db.collection(collection).updateOne(parameter)
+    const recordSet = await db.collection(collection).updateOne(parameter, { $set: data })
     !recordSet ? new Error('No record found') : recordSet
     return recordSet
 }

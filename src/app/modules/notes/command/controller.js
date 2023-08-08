@@ -3,7 +3,7 @@ const queryNotes = require('../queries/query');
 const NotesModels = require('./commandModel')
 const response = require('../../../../helpers/utils/response/response');
 const logger = require('../../../../helpers/utils/logger');
-
+const { ObjectId } = require('mongodb');
 
 const createNotes = async (req, res) => {
     const { error } = NotesModels.notes.validate(req.body);
@@ -22,11 +22,17 @@ const createNotes = async (req, res) => {
 }
 
 const updateNotes = async (req, res) => {
+    const parameter = { _id: new ObjectId(req.params.id) };
     const { error } = NotesModels.notes.validate(req.body);
     if (error) {
         response(res, 400, 'Bad Request', error.details[0].message);
+    } 
+
+    const notes = await queryNotes.findOne(parameter);
+
+    if (!notes) {
+        return response(res, 400, 'Notes not found');
     } else {
-        const parameter = { _id: req.params.id };
         try {
             const result = await commandNotes.updateData(parameter, req.body);
             logger.log(result, 'info');
@@ -39,7 +45,7 @@ const updateNotes = async (req, res) => {
 }
 
 const deleteNotes = async (req, res) => {
-    const parameter = { _id: req.params.id };
+    const parameter = { _id: new ObjectId(req.params.id) };
     try {
         const result = await commandNotes.deleteData(parameter);
         logger.log(result, 'info');

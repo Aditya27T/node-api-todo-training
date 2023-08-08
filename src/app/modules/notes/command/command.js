@@ -1,17 +1,17 @@
 const queries = require('../../../../helpers/database/mongo/db');
 
 const insertData = async (parameter) => {
-    const recorsSet = await queries.insertData(parameter, 'notes');
+    const recorsSet = await queries.insertOne(parameter, 'notes');
     return recorsSet;
 }
 
 const updateData = async (parameter, data) => {
-    const recorsSet = await queries.updateData(parameter, data, 'notes');
+    const recorsSet = await queries.updateOne(parameter, data, 'notes');
     return recorsSet;
 }
 
 const deleteData = async (parameter) => {
-    const recorsSet = await queries.deleteData(parameter, 'notes');
+    const recorsSet = await queries.deleteOne(parameter, 'notes');
     return recorsSet;
 }
 
