@@ -17,5 +17,7 @@ const deleteUser = async (user) => {
 
 
 module.exports = {
-    insertUser
+    insertUser,
+    updateUser,
+    deleteUser
 }

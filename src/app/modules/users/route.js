@@ -5,9 +5,9 @@ const router = express.Router();
 const jwtAuth = require('../../../auth/jwt.auth.js');
 
 
-router.get('/', jwtAuth.verifyToken, queries.findAllUsers);
+router.get('/', jwtAuth.verifyTokenAdmin, queries.findAllUsers);
 router.get('/:id', jwtAuth.verifyTokenAdmin, queries.findOneUser);
-router.post('/register', commands.register);
-router.post('/login', commands.login);
+router.put('/:id', jwtAuth.verifyTokenAdmin, commands.updateUser);
+router.delete('/:id', jwtAuth.verifyTokenAdmin, commands.deleteUser);
 
 module.exports = router;
